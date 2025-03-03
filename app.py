@@ -19,7 +19,7 @@ def load_sklearn_models(model_path):
 
 # load the model
 final_model = load_sklearn_models("LR_Model")
-scaler_model = load_sklearn_models("standard_scaler")
+#scaler_model = load_sklearn_models("standard_scaler")
 
 
 #title of the web page
