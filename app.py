@@ -87,9 +87,11 @@ def predict(dictionary):
   prediction=final_model.predict([final_list])
   print(prediction)
   if prediction==[0]:
-    print('demented')
+      return 'demented'
+    #print('demented')
   else:
-    print('non-demented')
+      return 'non-demented'
+    #print('non-demented')
 
 
 #make Predictions
