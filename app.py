@@ -18,11 +18,12 @@ def load_sklearn_models(model_path):
     return final_model
 
 # load the model
-adhd_model = load_sklearn_models("best_model_rf")
+final_model = load_sklearn_models("LR_Model")
+scaler_model = load_sklearn_models("standard_scaler")
 
 
 #title of the web page
-st.title("ADHD Predicting WebApp")
+st.title("Dementia Prediction WebApp")
 
 IMAGE_ADDRESS = "https://media.npr.org/assets/img/2024/05/22/gettyimages-1805884626_custom-12456c773bb5d72837b1b3534ff4e90e4f68a983.jpg?s=1100&c=85&f=jpeg"
 # set the image
@@ -39,61 +40,62 @@ else:
     g=1
 #st.write("You selected: ",gender)
 
-#input for age
-age=st.slider("What is the age", 0, 30,0)
+#input for MR delay time
+mr_delay=st.slider("What is the MR delay time", 0, 2639,1)
 #st.write("Age is", age, "years old")
 
-#Input for Handedness
-handedness=st.selectbox("Please select the dominant hand",("Right-Handed","Left-Handed","Ambidextrous-both the hands"))
-if handedness=="Right-Handed":
-    h=0
-elif handedness=="Left-Handed":
-    h=1
-else:
-    h=2
-#st.write("You selected:",handedness )
+#input for age
+age=st.slider("What is the age", 0, 120,1)
+#st.write("Age is", age, "years old")
 
+#input for years of education
+educ=st.slider("What is the number of years of education", 0, 50,1)
+#st.write("Age is", age, "years old")
 
-# Input for Inattentive score 
-inattentive = st.slider("Rate the level of inattentiveness (0-100)", 0, 100, 0)
-#st.write(f"Inattentiveness score: {inattentive}")
+#input for Socio Economic Status
+ses=st.slider("What is the value for Socio Economic Status", 0, 5,1)
+#st.write("Age is", age, "years old")
 
+#input for MMSE
+mmse=st.slider("What is the value for Mini Mental State Examination", 0, 40,1)
+#st.write("Age is", age, "years old")
 
+#input for Clinical Dementia Rating
+cdr=st.slider("What is the value for Clinical Dementia Rating (CDR)", 0, 2,0.5)
+#st.write("Age is", age, "years old")
 
-# Input for Impulsive score 
-impulsive = st.slider("Rate the level of impulsiveness (0-100)", 0, 100, 0)
-#st.write(f"Impulsiveness score: {impulsive}")
+#input for Estimated total intracranial volume
+etiv=st.slider("What is the value for Estimated total intracranial volume", 500, 2500,1)
+#st.write("Age is", age, "years old")
 
-# IQ Measure input
-iq_measure=st.slider("Select IQ Measure (1-5)", 1,5,0) 
-#st.write(f"Selected IQ Measure: {iq_measure}")
+#input for Normalize Whole Brain Volume
+nwbv=st.slider("What is the value for Normalize Whole Brain Volume", 0, 1,0.001)
+#st.write("Age is", age, "years old")
 
-# Verbal IQ input
-verbal_iq = st.slider("Enter the  Verbal IQ", 0, 200, 0)
-#st.write(f"Verbal IQ score: {verbal_iq}")
+#input for Atlas Scaling Factor
+asf=st.slider("What is the value for Atlas Scaling Factor", 0, 2,0.01)
+#st.write("Age is", age, "years old")
 
-# Performance IQ input
-performance_iq = st.slider("Enter your Performance IQ", 0, 200,0)
-#st.write(f"Performance IQ score: {performance_iq}")
-
-# Full4 IQ input
-full4_iq = st.slider("Enter your Full-Scale IQ (full4 IQ)", 0, 200, 0)
-#st.write(f"Full scale IQ score: {full4_iq}")
-
-# Med Status input
-med_status = st.radio("Are you on medication?", ("Yes", "No"))
-if med_status=='Yes':
-    m=1
-else:
-    m=2
-#st.write(f"Medication Status: {med_status}")
-
+def predict(dictionary):
+  categorical_value = [list(dictionary.values())[0]]
+  numeric_values=list(dictionary.values())[1:]
+  numeric_values_scaled = scaler_model.transform(np.array([numeric_values]))
+  print(categorical_value)
+  print(numeric_values_scaled)
+  final_list = categorical_value + list(numeric_values_scaled[0])
+  print(final_list)
+  prediction=final_model.predict([final_list])
+  print(prediction)
+  if prediction==[0]:
+    print('demented')
+  else:
+    print('non-demented')
 
 
 #make Predictions
 
-if st.button('Predict ADHD'):
-    input_data=[[g,age,h,inattentive,impulsive,iq_measure,verbal_iq,performance_iq,full4_iq,m]]
-    predictions=adhd_model.predict(input_data)
+if st.button('Predict Dementia'):
+    input_data = {'	M/F_M':g,'MR Delay':mr_delay,'Age':age,'EDUC':educ,'SES':ses,'MMSE':mmse,'CDR':cdr,'eTIV':etiv,'nWBV':nwbv,'ASF':asf}
+    predictions=predict(input_data)
     st.spinner(text="In progress...")
     st.subheader("User Condition: {}".format(LA
