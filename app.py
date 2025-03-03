@@ -68,7 +68,7 @@ mmse=st.slider("What is the value for Mini Mental State Examination", 0, 40,1)
 #st.write("Age is", age, "years old")
 
 #input for Clinical Dementia Rating
-cdr=st.slider("What is the value for Clinical Dementia Rating (CDR)", 0, 2,0.5)
+cdr=st.slider("What is the value for Clinical Dementia Rating (CDR)", 0.0, 2.0,0.5)
 #st.write("Age is", age, "years old")
 
 #input for Estimated total intracranial volume
@@ -76,11 +76,11 @@ etiv=st.slider("What is the value for Estimated total intracranial volume", 500,
 #st.write("Age is", age, "years old")
 
 #input for Normalize Whole Brain Volume
-nwbv=st.slider("What is the value for Normalize Whole Brain Volume", 0, 1,0.001)
+nwbv=st.slider("What is the value for Normalize Whole Brain Volume", 0.0, 1.0,0.001)
 #st.write("Age is", age, "years old")
 
 #input for Atlas Scaling Factor
-asf=st.slider("What is the value for Atlas Scaling Factor", 0, 2,0.01)
+asf=st.slider("What is the value for Atlas Scaling Factor", 0.0, 2.0,0.01)
 #st.write("Age is", age, "years old")
 
 def predict(dictionary):
