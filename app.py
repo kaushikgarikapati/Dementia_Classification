@@ -104,7 +104,7 @@ def predict(dictionary):
 #make Predictions
 
 if st.button('Predict Dementia'):
-    input_data = {'	M/F_M':g,'MR Delay':mr_delay,'Age':age,'EDUC':educ,'SES':ses,'MMSE':mmse,'CDR':cdr,'eTIV':etiv,'nWBV':nwbv,'ASF':asf}
+    input_data = {'M/F_M':g,'MR Delay':mr_delay,'Age':age,'EDUC':educ,'SES':ses,'MMSE':mmse,'CDR':cdr,'eTIV':etiv,'nWBV':nwbv,'ASF':asf}
     predictions=predict(input_data)
     st.spinner(text="In progress...")
     st.subheader("User Condition: {}".format(predictions))
