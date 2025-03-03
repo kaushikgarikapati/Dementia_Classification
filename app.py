@@ -5,8 +5,8 @@ import pickle
 
 
 LABEL_MAPPING = {
-    0: "ADHD Negative",
-    1: "ADHD Positive"
+    0: "Demented",
+    1: "Non-Demented"
 }
 
 @st.cache_resource
