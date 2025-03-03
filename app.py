@@ -9,6 +9,13 @@ LABEL_MAPPING = {
     1: "Non-Demented"
 }
 
+model_name = "LR_Model"
+file_name = open(model_name, 'rb')
+scaler_model_file = "standard_scaler"
+final_model = pickle.load(file_name)
+scaler_model_name = open(scaler_model_file,'rb')
+scaler_model = pickle.load(scaler_model_name)
+
 @st.cache_resource
 def load_sklearn_models(model_path):
 
@@ -18,8 +25,8 @@ def load_sklearn_models(model_path):
     return final_model
 
 # load the model
-final_model = load_sklearn_models("LR_Model")
-scaler_model = load_sklearn_models("standard_scaler")
+#final_model = load_sklearn_models("LR_Model")
+#scaler_model = load_sklearn_models("standard_scaler")
 
 
 #title of the web page
